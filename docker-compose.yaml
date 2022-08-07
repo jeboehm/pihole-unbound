@@ -2,7 +2,7 @@
 
 services:
   pihole:
-    image: jeboehm/pihole-unbound-sync
+    image: ghcr.io/jeboehm/pihole-unbound-sync:latest
     build: .
     ports:
       - "127.0.0.1:80:80"
