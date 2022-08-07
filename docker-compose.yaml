@@ -1,0 +1,11 @@
+---
+
+services:
+  pihole:
+    image: jeboehm/pihole-unbound-sync
+    build: .
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:53:53"
+      - "127.0.0.1:53:53/udp"
+    env_file: .env
