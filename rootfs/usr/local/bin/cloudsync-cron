@@ -1,0 +1,47 @@
+#!/bin/sh
+
+set -e
+
+REPO_FOLDER="/usr/local/bin/my-pihole-lists"
+
+if [ "$CLOUDSYNC_MODE" = "off" ]
+then
+    echo "Cloudsync is disabled"
+
+    exit 0
+fi
+
+if [ "$GIT_REPOSITORY" = "" ]
+then
+    echo "Git repository is not set"
+
+    exit 1
+fi
+
+if ! [ -d "$REPO_FOLDER" ]
+then
+    git clone $GIT_REPOSITORY $REPO_FOLDER
+    cd $REPO_FOLDER
+
+    if ! [ -r "adlist.csv" ] && [ "$CLOUDSYNC_MODE" = "main" ]
+    then
+        /usr/bin/pihole-cloudsync --initpush
+    fi
+fi
+
+if [ "$CLOUDSYNC_MODE" = "main" ]
+then
+    echo "Cloudsync is in main mode"
+
+    git config --global user.email "pihole-main@docker"
+    git config --global user.name "Pihole Main ($HOSTNAME)"
+
+    /usr/bin/pihole-cloudsync --push
+else
+    echo "Cloudsync is in sub mode"
+
+    git config --global user.email "pihole-sub@docker"
+    git config --global user.name "Pihole Sub ($HOSTNAME)"
+
+    /usr/bin/pihole-cloudsync --pull
+fi
