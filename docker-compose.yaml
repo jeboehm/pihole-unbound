@@ -2,10 +2,9 @@
 
 services:
   pihole:
-    image: ghcr.io/jeboehm/pihole-unbound-sync:latest
+    image: ghcr.io/jeboehm/pihole-unbound:latest
     build: .
     ports:
       - "127.0.0.1:80:80"
       - "127.0.0.1:53:53"
       - "127.0.0.1:53:53/udp"
-    env_file: .env
