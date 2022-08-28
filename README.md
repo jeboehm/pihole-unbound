@@ -3,6 +3,8 @@ pihole-unbound
 
 This integrates the Unbound dns resolver with Pi-hole.
 
+[![build](https://github.com/jeboehm/pihole-unbound/actions/workflows/build.yml/badge.svg)](https://github.com/jeboehm/pihole-unbound/actions/workflows/build.yml)
+
 ## More Information
 
 - [Unbound, Integration Guide](https://docs.pi-hole.net/guides/dns/unbound/)
