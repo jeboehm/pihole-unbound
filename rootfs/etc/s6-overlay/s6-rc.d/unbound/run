@@ -1,0 +1,6 @@
+#!/bin/sh
+
+s6-echo "Starting unbound"
+
+exec 2>&1
+exec unbound -d
