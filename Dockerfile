@@ -1,4 +1,4 @@
-FROM pihole/pihole:2022.08
+FROM pihole/pihole:2022.09
 
 RUN set -e && apt-get update && \
     apt-get install --no-install-recommends -y unbound unbound-anchor && \
