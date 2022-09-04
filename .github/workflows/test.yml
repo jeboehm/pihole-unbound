@@ -1,0 +1,26 @@
+name: 'test'
+
+on:
+  push:
+  pull_request:
+env:
+  IMAGE_NAME: pihole-unbound
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+
+      - name: Start Pi-hole
+        run: docker run -d --name pihole -p 127.0.0.1:8053:53 -p 127.0.0.1:8053:53/udp $IMAGE_NAME
+
+      - name: Sleep
+        run: sleep 10
+
+      - name: Test dns resolution
+        run: dig @127.0.0.1 -p 8053 google.de
