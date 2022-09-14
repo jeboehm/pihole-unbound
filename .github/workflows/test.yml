@@ -24,3 +24,9 @@ jobs:
 
       - name: Test dns resolution
         run: dig @127.0.0.1 -p 8053 google.de
+
+      - name: Test dnssec resolution (expect SERVFAIL)
+        run: dig @127.0.0.1 -p 8053 sigfail.verteiltesysteme.net | grep SERVFAIL
+
+      - name: Test dnssec resolution (expect NOERROR)
+        run: dig @127.0.0.1 -p 8053 sigok.verteiltesysteme.net | grep NOERROR
