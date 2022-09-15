@@ -12,7 +12,10 @@
   "baseBranches": ["main"],
   "packageRules": [
     {
-      "automerge": true
+      "automerge": true,
+      "matchFiles": [
+        "Dockerfile"
+      ]
     }
   ]
 }
